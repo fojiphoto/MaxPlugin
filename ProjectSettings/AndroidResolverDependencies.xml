@@ -1,11 +1,13 @@
 <dependencies>
   <packages>
-    <package>com.applovin:applovin-sdk:11.6.0</package>
+    <package>com.applovin.mediation:google-adapter:[21.5.0.0]</package>
+    <package>com.applovin.mediation:google-ad-manager-adapter:[21.5.0.0]</package>
+    <package>com.applovin:applovin-sdk:11.7.1</package>
   </packages>
   <files />
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
-    <setting name="bundleId" value="com.Company.BeatEmUpTemplate" />
+    <setting name="bundleId" value="com.DefaultCompany.MaxPlugin" />
     <setting name="explodeAars" value="True" />
     <setting name="gradleBuildEnabled" value="True" />
     <setting name="gradlePropertiesTemplateEnabled" value="False" />

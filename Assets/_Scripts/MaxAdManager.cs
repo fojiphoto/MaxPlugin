@@ -98,8 +98,12 @@ public class MaxAdManager : MonoBehaviour
     public static MaxAdManager Instance;
     //public AdmobManager admobManager;
     [SerializeField] private AdIds AdsIDS;
+    [SerializeField] private float AdTime = 30;
+    [SerializeField] private bool ItsShowTime = true;
+    float InternalAdTime;
     public Text InterText;
     public Text RewardedText;
+    public Image NoInterNet;
     [HideInInspector] public bool disableAdmobAds = false;
     [HideInInspector] public bool showAdmobBanner = true;
     [HideInInspector] public bool mainMenuAdmobPriorty = true;
@@ -144,6 +148,39 @@ public class MaxAdManager : MonoBehaviour
         MaxSdk.SetSdkKey(AdsIDS.MaxSDKId);
         MaxSdk.InitializeSdk();
         //AdmobManager.OnRewardedAdCompletedEvent += AdmobDoneReward;
+
+        InternalAdTime = AdTime;
+    }
+    private void Update()
+    {
+        if (AdTime > 0)
+            AdTime -= Time.deltaTime;
+
+        if (AdTime <= 0 & ItsShowTime == false)
+            ItsShowTime = true;
+
+#if !UNITY_EDITOR
+        if (Application.internetReachability != NetworkReachability.NotReachable)
+            NoInterNet.gameObject.SetActive(true);
+        else
+            NoInterNet.gameObject.SetActive(false);
+#endif
+            }
+
+    bool CheckAdTime()
+    {
+        if (ItsShowTime)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private void ResetTimer()
+    {
+        AdTime = InternalAdTime;
+        ItsShowTime = false;
     }
     private void OnDestroy()
     {
@@ -213,11 +250,12 @@ public class MaxAdManager : MonoBehaviour
 
         if (mainMenuAdmobPriorty == false)
         {
-            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID))
+            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID) & ItsShowTime)
             {
                 Debug.Log("Showing...");
                 InterText.text = "Inter is Showing";
                 MaxSdk.ShowInterstitial(AdsIDS.InterstitialID);
+                ResetTimer();
             }
             else
             {
@@ -234,10 +272,11 @@ public class MaxAdManager : MonoBehaviour
             //    admobManager.ShowAdmobInterstitial();
             //}
             //else
-            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID))
+            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID) & ItsShowTime)
             {
                 InterText.text = "Inter is Showing";
                 MaxSdk.ShowInterstitial(AdsIDS.InterstitialID);
+                ResetTimer();
             }
         }
     }
@@ -249,10 +288,11 @@ public class MaxAdManager : MonoBehaviour
         }
         if (gamePlayMaxPriorty)
         {
-            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID))
+            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID) & ItsShowTime)
             {
                 InterText.text = "Inter is Showing";
                 MaxSdk.ShowInterstitial(AdsIDS.InterstitialID);
+                ResetTimer();
             }
             else
             {
@@ -269,14 +309,15 @@ public class MaxAdManager : MonoBehaviour
             //    admobManager.ShowAdmobInterstitial();
             //}
             //else
-            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID))
+            if (MaxSdk.IsInterstitialReady(AdsIDS.InterstitialID) & ItsShowTime)
             {
                 InterText.text = "Inter is Showing";
                 MaxSdk.ShowInterstitial(AdsIDS.InterstitialID);
+                ResetTimer();
             }
         }
     }
-    #region Interstitial Ad Methods
+#region Interstitial Ad Methods
 
     private void InitializeInterstitialAds()
     {
@@ -341,7 +382,7 @@ public class MaxAdManager : MonoBehaviour
         //TrackAdRevenue(adInfo);
     }
 
-    #endregion
+#endregion
 
     public void LoadRewardedAd()
     {
@@ -352,22 +393,24 @@ public class MaxAdManager : MonoBehaviour
 
     public void ShowRewardedAd()
     {
-        if (MaxSdk.IsRewardedAdReady(AdsIDS.RewardedAdID))
+        if (MaxSdk.IsRewardedAdReady(AdsIDS.RewardedAdID) & ItsShowTime)
         {
             Debug.Log("Showing Rewarded Ad");
             RewardedText.text = "Showing Rewarded Ad...";
             MaxSdk.ShowRewardedAd(AdsIDS.RewardedAdID);
+
+            ResetTimer();
         }
-        else
-        {
-            Debug.Log("Rewarded Ad not ready");
-            RewardedText.text = "Not Ready Rewarded Ad...";
-            if (disableAdmobAds)
-                return;
-            //admobManager.ShowRewardedAd();
-        }
+        //else
+        //{
+        //    Debug.Log("Rewarded Ad not ready");
+        //    RewardedText.text = "Not Ready Rewarded Ad...";
+        //    if (disableAdmobAds)
+        //        return;
+        //    //admobManager.ShowRewardedAd();
+        //}
     }
-    #region Rewarded Ad Methods
+#region Rewarded Ad Methods
 
     private void InitializeRewardedAds()
     {
@@ -470,10 +513,10 @@ public class MaxAdManager : MonoBehaviour
         // TrackAdRevenue(adInfo);
     }
 
-    #endregion
+#endregion
 
 
-    #region Banner Ad Methods
+#region Banner Ad Methods
 
     private void InitializeBannerAds()
     {
@@ -537,9 +580,9 @@ public class MaxAdManager : MonoBehaviour
         //TrackAdRevenue(adInfo);
     }
 
-    #endregion
+#endregion
 
-    #region MREC Ad Methods
+#region MREC Ad Methods
 
     private void InitializeMRecAds()
     {
@@ -616,7 +659,7 @@ public class MaxAdManager : MonoBehaviour
         // TrackAdRevenue(adInfo);
     }
 
-    #endregion
+#endregion
 
     //private void TrackAdRevenue(MaxSdkBase.AdInfo adInfo)
     //{
