@@ -138,10 +138,10 @@ public class MaxAdManager : MonoBehaviour
             MaxSdk.LoadAppOpenAd(AdsIDS.AppOpen);
             InitializeInterstitialAds();
             InitializeRewardedAds();
+            InitializeBannerAds();
            // if (showAdmobBanner)
                 //admobManager.ShowMMTopBanner();
            // else
-           // InitializeBannerAds();
            // InitializeMRecAds();
             
         };
@@ -529,11 +529,9 @@ public class MaxAdManager : MonoBehaviour
     }
     public void ShowBanner()
     {
-        if (PlayerPrefs.GetInt("RemoveAds") == 6676)
-        {
-            return;
-        }
-        MaxSdk.ShowBanner(AdsIDS.BannerAdID);
+        //MaxSdk.CreateBanner();
+        //MaxSdk.LoadBanner(AdsIDS.BannerAdID);
+       MaxSdk.ShowBanner(AdsIDS.BannerAdID);
     }
     public void HideBanner()
     {

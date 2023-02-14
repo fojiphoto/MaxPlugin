@@ -3384,6 +3384,31 @@ PrefabInstance:
       propertyPath: RewardedText
       value: 
       objectReference: {fileID: 357202420}
+    - target: {fileID: 477822371186668625, guid: 8aae1d96b5025496f8719085e9e24685,
+        type: 3}
+      propertyPath: AdsIDS.androidAdIDs.MaxID
+      value: kK_bIvS39a1lskLS4KzHlzy7llZJqVQz0mtAxO7PdVI5oFGTe8S3T8A4F41gUfxqilsA8UMuApb6uGwAMTc4xQ
+      objectReference: {fileID: 0}
+    - target: {fileID: 477822371186668625, guid: 8aae1d96b5025496f8719085e9e24685,
+        type: 3}
+      propertyPath: AdsIDS.androidAdIDs.AppOpenID
+      value: f35b43d27f3b01b9
+      objectReference: {fileID: 0}
+    - target: {fileID: 477822371186668625, guid: 8aae1d96b5025496f8719085e9e24685,
+        type: 3}
+      propertyPath: AdsIDS.androidAdIDs.bannerAdID
+      value: 09dc12a66f11d9ba
+      objectReference: {fileID: 0}
+    - target: {fileID: 477822371186668625, guid: 8aae1d96b5025496f8719085e9e24685,
+        type: 3}
+      propertyPath: AdsIDS.androidAdIDs.rewardedAdID
+      value: f39389e48bb8154d
+      objectReference: {fileID: 0}
+    - target: {fileID: 477822371186668625, guid: 8aae1d96b5025496f8719085e9e24685,
+        type: 3}
+      propertyPath: AdsIDS.androidAdIDs.interstitialID
+      value: 0a8a7f2174c8e348
+      objectReference: {fileID: 0}
     - target: {fileID: 942850928673140672, guid: 8aae1d96b5025496f8719085e9e24685,
         type: 3}
       propertyPath: m_Name
